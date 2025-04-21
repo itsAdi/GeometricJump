@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3520886b435b024f590ffa7f39c0a136, type: 3}
+  m_Name: KemothAdsConfiguration
+  m_EditorClassIdentifier: 
+  _showTestAds: 1
+  _canShowInterstitialAds: 1
+  _interstitialAdUnitID: 
+  _canShowRewardedAds: 0
+  _rewardedAdUnitID: 
+  _canShowBannerAds: 0
+  _bannerAdUnitID: 
