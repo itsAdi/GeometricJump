@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3520886b435b024f590ffa7f39c0a136, type: 3}
   m_Name: KemothAdsConfiguration
   m_EditorClassIdentifier: 
-  _showTestAds: 1
+  _showTestAds: 0
   _canShowInterstitialAds: 1
-  _interstitialAdUnitID: 
+  _interstitialAdUnitID: ca-app-pub-8347424776413444/9722712234
   _canShowRewardedAds: 0
   _rewardedAdUnitID: 
   _canShowBannerAds: 0

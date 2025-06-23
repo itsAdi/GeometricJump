@@ -109,6 +109,7 @@ public class persistentData : MonoBehaviour
 
         if (!gameOver)
         {
+            float speed = 9.5f;
 #if ON_PC
             if (!gameStarted && Keyboard.current.spaceKey.wasPressedThisFrame)
             {
@@ -118,12 +119,12 @@ public class persistentData : MonoBehaviour
 
             if (Keyboard.current.aKey.isPressed)
             {
-                ibColl.ForEach(x => x.OnAccelerometre(-0.15f));
+                ibColl.ForEach(x => x.OnAccelerometre(-speed * Time.deltaTime));
             }
 
             if (Keyboard.current.dKey.isPressed)
             {
-                ibColl.ForEach(x => x.OnAccelerometre(0.15f));
+                ibColl.ForEach(x => x.OnAccelerometre(speed * Time.deltaTime));
             }
 
             if (Keyboard.current.aKey.wasReleasedThisFrame)
@@ -150,7 +151,10 @@ public class persistentData : MonoBehaviour
                 Vector3 acceleration = Accelerometer.current.acceleration.ReadValue();
                 if (!Mathf.Approximately(0f, acceleration.x))
                 {
-                    ibColl.ForEach(x => x.OnAccelerometre(acceleration.x * 9f * Time.deltaTime));
+                    float absAccX = Mathf.Abs(acceleration.x);
+                    float adjustedAccX = Mathf.InverseLerp(0f, 0.5f, absAccX);
+                    speed = Mathf.Lerp(speed / 12f, speed, adjustedAccX);
+                    ibColl.ForEach(x => x.OnAccelerometre(acceleration.x > 0f ? speed * Time.deltaTime : -speed * Time.deltaTime));
                 }
             }
 #endif
