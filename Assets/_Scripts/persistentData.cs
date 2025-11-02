@@ -30,6 +30,7 @@ public class persistentData : MonoBehaviour
     public static persistentData Instance;
 
     private float rawScore;
+    private bool _isTouched;
 
     EventBinding<InterstitialAdCompletedEvent> _interstitialAdCompleted;
     private Action _onInterstialAdCompleted;
@@ -110,13 +111,17 @@ public class persistentData : MonoBehaviour
         if (!gameOver)
         {
             float speed = 9.5f;
-#if ON_PC
-            if (!gameStarted && Keyboard.current.spaceKey.wasPressedThisFrame)
+            
+            if (!gameStarted)
             {
-                ibColl.ForEach(x => x.OnTouch());
-                gameStarted = true;
+                if (_isTouched)
+                {
+                    _isTouched = false;
+                    ibColl.ForEach(x => x.OnTouch());
+                    gameStarted = true;
+                }
             }
-
+#if ON_PC
             if (Keyboard.current.aKey.isPressed)
             {
                 ibColl.ForEach(x => x.OnAccelerometre(-speed * Time.deltaTime));
@@ -138,14 +143,6 @@ public class persistentData : MonoBehaviour
             }
 #endif
 #if ON_PHONE
-            if (!gameStarted)
-            {
-                if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
-                {
-                    ibColl.ForEach(x => x.OnTouch());
-                    gameStarted = true;
-                }
-            }
             if (Accelerometer.current != null)
             {
                 Vector3 acceleration = Accelerometer.current.acceleration.ReadValue();
@@ -159,6 +156,11 @@ public class persistentData : MonoBehaviour
             }
 #endif
         }
+    }
+
+    public void OnTouchInput()
+    {
+        _isTouched = true;
     }
 
     public void increaseRawScore()
